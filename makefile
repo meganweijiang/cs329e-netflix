@@ -1,6 +1,6 @@
 FILES :=                              \
     .travis.yml                       \
-    Netflix.html                      \
+#    Netflix.html                      \
     Netflix.log                       \
     Netflix.py                        \
     RunNetflix.in                     \
