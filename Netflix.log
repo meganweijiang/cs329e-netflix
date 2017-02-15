@@ -1,0 +1,65 @@
+commit 6ab2f517df49aa608f513e44ea47c2802e1b102a
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Wed Feb 15 15:01:47 2017 -0600
+
+    Fix file cause of cache error
+
+commit 28f407872d6ea9d917f6f8af60bf917270bb6675
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Wed Feb 15 14:40:57 2017 -0600
+
+    add Netflix.html file
+
+commit 8e5c9b67d994e9500fd4590dfda96e52ba3738be
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Wed Feb 15 14:29:13 2017 -0600
+
+    fix unit tests
+
+commit 250520df2964820bd4c7bb947b25449addb48fb3
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Wed Feb 15 14:22:08 2017 -0600
+
+    add/fix unit tests and fix acceptance tests
+
+commit 199b46f3fcb4b9fb70a823092958c45d68c2af76
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Wed Feb 15 14:09:09 2017 -0600
+
+    fix algorithm to have RMSE > 1
+
+commit a740a9c692f261639caedb94661a651a13adf47f
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Wed Feb 15 13:02:27 2017 -0600
+
+    change output to single decimal place and tweak algorithm
+
+commit d4f0172157c0f96201c6e14685f3b3ba08cbdb77
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Tue Feb 14 18:49:28 2017 -0600
+
+    add simple algorithm so far and fix input and output for now
+
+commit 214dd1cb0270ee97fe9ce4f30918205b56d114f5
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Mon Feb 13 19:14:48 2017 -0600
+
+    Fix makefile to get successful build on Travis
+
+commit 789ce06f4845857341cd092debc97fe50123141e
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Fri Feb 10 09:57:50 2017 -0600
+
+    add .gitignore
+
+commit 278cc1b4f171773a61c7af135db15156aab64169
+Author: Megan Weijiang <meganweijiang@utexas.edu>
+Date:   Fri Feb 10 09:52:03 2017 -0600
+
+    add travis.yml file
+
+commit f7ef260b68a82024d49da86fab4b78c9b0b3f9ab
+Author: Megan Weijiang <mxw67@cs.utexas.edu>
+Date:   Thu Feb 9 15:13:21 2017 -0600
+
+    Add files from public repo and test Travis
