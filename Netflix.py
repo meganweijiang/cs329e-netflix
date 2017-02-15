@@ -30,7 +30,7 @@ def create_cache(filename):
     return cache
 
 
-AVERAGE_RATING = 3.6
+AVERAGE_RATING = 3.7
 ACTUAL_CUSTOMER_RATING = create_cache(
     "cache-actualCustomerRating.pickle")
 AVERAGE_MOVIE_RATING_PER_YEAR = create_cache(
@@ -40,6 +40,7 @@ CUSTOMER_AVERAGE_RATING_YEARLY = create_cache(
     "cache-customerAverageRatingByYear.pickle")
 AVG_CUSTOMER_RATING = create_cache("cache-averageCustomerRating.pickle")
 AVG_MOVIE_RATING = create_cache("cache-averageMovieRating.pickle")
+CUSTOMER_OFFSET = create_cache("amm7366-rs45899-customerAverageOffset.pickle")
 
 # ------------
 # netflix_eval
@@ -62,24 +63,15 @@ def netflix_eval(reader, writer) :
         else:
 		# It's a customer
             current_customer = line
-            if int(current_customer) in AVG_CUSTOMER_RATING and int(current_movie) in AVG_MOVIE_RATING:
-                if AVG_CUSTOMER_RATING[int(current_customer)] >= 4.0:
-                    if AVG_MOVIE_RATING[int(current_movie)] < 2.0:
-                        prediction -= 0.3                   
-                    prediction = round(((AVG_CUSTOMER_RATING[int(current_customer)] + AVG_MOVIE_RATING[int(current_movie)])/2), 1)
-                    if AVG_CUSTOMER_RATING[int(current_customer)] > 4.5:
-                        prediction = 5.0                        
-                if AVG_CUSTOMER_RATING[int(current_customer)] > 3.0 and AVG_CUSTOMER_RATING[int(current_customer)] < 4.0:
-                    prediction = round(float(AVG_MOVIE_RATING[int(current_movie)]) - 0.1, 1)                  
-                if AVG_CUSTOMER_RATING[int(current_customer)] <= 3.0:
-                    prediction = round(((AVG_CUSTOMER_RATING[int(current_customer)] + AVG_MOVIE_RATING[int(current_movie)])/2), 1)
-                    if AVG_MOVIE_RATING[int(current_movie)] > 4.0:
-                        prediction += 0.3
-                    if AVG_CUSTOMER_RATING[int(current_customer)] < 1.5:
-                        prediction = 1.0                    
-            elif int(current_customer) in AVG_CUSTOMER_RATING:
+            if int(current_customer) in CUSTOMER_OFFSET and int(current_movie) in AVG_MOVIE_RATING:
+                prediction = round(AVG_MOVIE_RATING[int(current_movie)] + CUSTOMER_OFFSET[int(current_customer)], 1)
+                if prediction < 1:
+                    prediction = 1.0
+                if prediction > 5:
+                    prediction = 5.0
+            elif int(current_customer) in AVG_CUSTOMER_RATING and int(current_movie) not in AVG_MOVIE_RATING:
                 prediction = round(float(AVG_CUSTOMER_RATING[int(current_customer)]))
-            elif int(current_movie) in AVG_MOVIE_RATING:
+            elif int(current_movie) in AVG_MOVIE_RATING and int(current_customer) not in AVG_CUSTOMER_RATING:
                 prediction = round(float(AVG_MOVIE_RATING[int(current_movie)]))
             else:
                 prediction = AVERAGE_RATING
@@ -88,6 +80,6 @@ def netflix_eval(reader, writer) :
             writer.write(str(prediction)) 
             writer.write('\n')
     # calculate rmse for predications and actuals
-    rmse = round(sqrt(mean(square(subtract(predictions, actual)))), 2)
+    rmse = sqrt(mean(square(subtract(predictions, actual))))
     writer.write("RMSE: " + str(rmse)[:4] + '\n')
 
