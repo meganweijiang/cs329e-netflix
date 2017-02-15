@@ -30,7 +30,7 @@ def create_cache(filename):
     return cache
 
 
-AVERAGE_RATING = 3.60428996442
+AVERAGE_RATING = 3.6
 ACTUAL_CUSTOMER_RATING = create_cache(
     "cache-actualCustomerRating.pickle")
 AVERAGE_MOVIE_RATING_PER_YEAR = create_cache(
@@ -40,7 +40,6 @@ CUSTOMER_AVERAGE_RATING_YEARLY = create_cache(
     "cache-customerAverageRatingByYear.pickle")
 AVG_CUSTOMER_RATING = create_cache("cache-averageCustomerRating.pickle")
 AVG_MOVIE_RATING = create_cache("cache-averageMovieRating.pickle")
-
 
 # ------------
 # netflix_eval
@@ -58,24 +57,37 @@ def netflix_eval(reader, writer) :
         if line[-1] == ':':
 		# It's a movie
             current_movie = line.rstrip(':')
-            if int(current_movie) in AVG_MOVIE_RATING:
-                prediction = AVG_MOVIE_RATING[int(current_movie)]
-            else:
-                prediction = AVERAGE_RATING
             writer.write(line)
             writer.write('\n')
         else:
 		# It's a customer
             current_customer = line
-            if int(current_customer) in AVG_CUSTOMER_RATING and int(current_movie) not in AVG_MOVIE_RATING:
-                prediction = AVG_CUSTOMER_RATING[int(current_customer)]
+            if int(current_customer) in AVG_CUSTOMER_RATING and int(current_movie) in AVG_MOVIE_RATING:
+                if AVG_CUSTOMER_RATING[int(current_customer)] >= 4.0:
+                    if AVG_MOVIE_RATING[int(current_movie)] < 2.0:
+                        prediction -= 0.3                   
+                    prediction = round(((AVG_CUSTOMER_RATING[int(current_customer)] + AVG_MOVIE_RATING[int(current_movie)])/2), 1)
+                    if AVG_CUSTOMER_RATING[int(current_customer)] > 4.5:
+                        prediction = 5.0                        
+                if AVG_CUSTOMER_RATING[int(current_customer)] > 3.0 and AVG_CUSTOMER_RATING[int(current_customer)] < 4.0:
+                    prediction = round(float(AVG_MOVIE_RATING[int(current_movie)]) - 0.1, 1)                  
+                if AVG_CUSTOMER_RATING[int(current_customer)] <= 3.0:
+                    prediction = round(((AVG_CUSTOMER_RATING[int(current_customer)] + AVG_MOVIE_RATING[int(current_movie)])/2), 1)
+                    if AVG_MOVIE_RATING[int(current_movie)] > 4.0:
+                        prediction += 0.3
+                    if AVG_CUSTOMER_RATING[int(current_customer)] < 1.5:
+                        prediction = 1.0                    
+            elif int(current_customer) in AVG_CUSTOMER_RATING:
+                prediction = round(float(AVG_CUSTOMER_RATING[int(current_customer)]))
+            elif int(current_movie) in AVG_MOVIE_RATING:
+                prediction = round(float(AVG_MOVIE_RATING[int(current_movie)]))
             else:
-                prediction = (AVG_CUSTOMER_RATING[int(current_customer)] + AVG_MOVIE_RATING[int(current_movie)])/2
+                prediction = AVERAGE_RATING
             predictions.append(prediction)
             actual.append(ACTUAL_CUSTOMER_RATING[int(current_customer),int(current_movie)])
             writer.write(str(prediction)) 
-            writer.write('\n')	
+            writer.write('\n')
     # calculate rmse for predications and actuals
-    rmse = sqrt(mean(square(subtract(predictions, actual))))
-    writer.write(str(rmse)[:4] + '\n')
+    rmse = round(sqrt(mean(square(subtract(predictions, actual)))), 2)
+    writer.write("RMSE: " + str(rmse)[:4] + '\n')
 
