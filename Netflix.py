@@ -40,7 +40,7 @@ CUSTOMER_AVERAGE_RATING_YEARLY = create_cache(
     "cache-customerAverageRatingByYear.pickle")
 AVG_CUSTOMER_RATING = create_cache("cache-averageCustomerRating.pickle")
 AVG_MOVIE_RATING = create_cache("cache-averageMovieRating.pickle")
-CUSTOMER_OFFSET = create_cache("amm7366-rs45899-customerAverageOffset.pickle")
+CUSTOMER_OFFSET = create_cache("rs45899-customerAverageOffset.pickle")
 
 # ------------
 # netflix_eval
