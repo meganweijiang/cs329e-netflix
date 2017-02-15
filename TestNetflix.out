@@ -1,53 +1,8 @@
-FFF
-======================================================================
-FAIL: test_eval_1 (__main__.TestNetflix)
+...
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "TestNetflix.py", line 27, in test_eval_1
-    w.getvalue(), "10040:\n3.9\n2.9\n3.8\n0.53\n")
-AssertionError: '10040:\n3.9\n2.9\n3.8\nRMSE: 0.53\n' != '10040:\n3.9\n2.9\n3.8\n0.53\n'
-  10040:
-  3.9
-  2.9
-  3.8
-- RMSE: 0.53
-+ 0.53
+Ran 3 tests in 0.001s
 
-
-======================================================================
-FAIL: test_eval_2 (__main__.TestNetflix)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "TestNetflix.py", line 34, in test_eval_2
-    w.getvalue(), "1:\n3.9\n3.5\n3.7\n0.5\n")
-AssertionError: '1:\n3.9\n3.5\n3.7\nRMSE: 0.5\n' != '1:\n3.9\n3.5\n3.7\n0.5\n'
-  1:
-  3.9
-  3.5
-  3.7
-- RMSE: 0.5
-+ 0.5
-
-
-======================================================================
-FAIL: test_eval_3 (__main__.TestNetflix)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "TestNetflix.py", line 41, in test_eval_3
-    w.getvalue(), "1000:\n3.9\n3.4\n2.0\n0.56\n")
-AssertionError: '1000:\n3.9\n3.4\n2.0\nRMSE: 0.56\n' != '1000:\n3.9\n3.4\n2.0\n0.56\n'
-  1000:
-  3.9
-  3.4
-  2.0
-- RMSE: 0.56
-+ 0.56
-
-
-----------------------------------------------------------------------
-Ran 3 tests in 0.002s
-
-FAILED (failures=3)
+OK
 Name             Stmts   Miss Branch BrPart  Cover   Missing
 ------------------------------------------------------------
 Netflix.py          50      9     16      4    74%   22-23, 69, 71-77, 21->22, 66->72, 68->69, 70->71
